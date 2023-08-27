@@ -5,16 +5,11 @@ const jwt = require('jsonwebtoken');
 const  fs = require("fs");
 app.use(cors());
 app.use(express.json());
+const controller = require("./db");
 
 let jwtBearerToken;
 
-const expressJwt = require('express-jwt');
-
 const RSA_PUBLIC_KEY = fs.readFileSync('./privateKey.key');
-
-// const checkIfAuthenticated = expressJwt.expressjwt({
-//     secret: RSA_PUBLIC_KEY
-// }); 
 
   function checkIfAuthenticated () {
     try{
@@ -47,11 +42,12 @@ try {
   app.post("/validateUserDetails", (req, res) => {
     console.log("req payload is ::  ", req.body);
     controller.query(
-      "SELECT * FROM userdetails where username = ? AND password = ?",
-      [req.body.username, req.body.password],
+      "SELECT * FROM user where username = ? AND password = ?",
+      [req.body.userName, req.body.password],
       function(err, data, fields) {
         if (err) return err;
-        res.status(200).json({
+        console.log('data is ',data);
+       let finalResponse=  res.status(200).json({
           status: "success",
           data: data
         });
