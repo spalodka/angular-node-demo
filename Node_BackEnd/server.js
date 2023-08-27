@@ -10,6 +10,7 @@ const controller = require("./db");
 let jwtBearerToken;
 
 const RSA_PUBLIC_KEY = fs.readFileSync('./privateKey.key');
+const RSA_PRIVATE_KEY = fs.readFileSync('./privateKey.key');
 
   function checkIfAuthenticated () {
     try{
@@ -46,11 +47,29 @@ try {
       [req.body.userName, req.body.password],
       function(err, data, fields) {
         if (err) return err;
-        console.log('data is ',data);
-       let finalResponse=  res.status(200).json({
-          status: "success",
-          data: data
+        console.log('data is ',data.length);
+        if(data.length > 0){
+          const userId = req.body.userName;
+          jwtBearerToken = jwt.sign({},RSA_PRIVATE_KEY, {
+          algorithm: 'RS256',
+          expiresIn:10,
+          subject: userId
+  });
+          res.status(200).json({
+            status: "success",
+            data: {
+              "isAuthenticatedUser": true,
+              "authToken": jwtBearerToken,
+            }
+          });   
+        }else{
+         res.status(200).json({
+          status: "fail",
+          data: {
+            "isAuthenticatedUser":false,
+          }
         });
+      }
       }
     );
   });
@@ -61,7 +80,6 @@ try {
 try {
   app.post("/getUserToken", (req, res) => {
     console.log("*** req payload is ****::  ", req.body);
-    const RSA_PRIVATE_KEY = fs.readFileSync('./privateKey.key');
     const userId = req.body.username;
      jwtBearerToken = jwt.sign({},RSA_PRIVATE_KEY, {
       algorithm: 'RS256',

@@ -104,3 +104,17 @@ form .button input:hover{
 form .signup-link a:hover{
   text-decoration: underline;
 }
+.error-highlighter{
+  color:red;
+  margin-bottom: 5px;;
+}
+.login-btn{
+  padding:10px 20px;
+  color:white;
+  background-color: blue;
+  border:none;
+}
+[disabled] {
+  opacity: .6;
+    cursor: not-allowed;
+}

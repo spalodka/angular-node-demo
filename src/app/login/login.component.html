@@ -4,14 +4,19 @@
         <div class="title"><span>Login Form</span></div>
         <form [formGroup]="loginForm"  name="loginForm">
           <div class="row">
-            <input type="text" placeholder="userName" formControlName="userName" required>
+            <input type="text" placeholder="userName" formControlName="userName" minlength="3"  maxlength="15" required>
           </div>
           <div class="row">
-            <input type="password" placeholder="Password"  formControlName="password" required>
+            <input type="password" placeholder="Password"  formControlName="password"  minlength="9"  maxlength="20" required>
           </div>
           <div class="pass"><a href="#">Forgot password?</a></div>
+          <div class="error-container" role="alert">
+            <div *ngIf="!isAuthenticatedUser && isSubmitted" class="error-highlighter">
+                 Please enter valid credentials 
+            </div>
+          </div>
           <div class="row button">
-            <button type="button" (click)="onSubmit(loginForm)">Login</button>
+            <button type="button" [disabled]="!loginForm.valid" class="login-btn" (click)="onSubmit(loginForm)">Login</button>
           </div>
           <!-- <div class="row button">
             <button type="button" (click)="getAllPost()">Get Stuent</button>

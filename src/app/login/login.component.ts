@@ -16,6 +16,8 @@ export class LoginComponent implements OnInit{
              public authService:AuthService){
   }
   usersList : any;
+  isAuthenticatedUser :boolean =false;
+  isSubmitted:boolean=false;
   loginForm = new FormGroup({
     userName: new FormControl(''),
     password: new FormControl(''),
@@ -28,7 +30,6 @@ export class LoginComponent implements OnInit{
 
   onSubmit(userDetails:any){
     console.log("userDetailsis::",userDetails);
-    let isAuthenticatedUser = false;
    // let selectedUser = "";
     // for (let i = 0; i < this.usersList.length; i++) {
     //   const userName = this.usersList[i].username;
@@ -43,28 +44,19 @@ export class LoginComponent implements OnInit{
 
    this.httpClient
       .post(`${environment.apiUrl}/validateUserDetails`, userDetails.value)
-     .subscribe(data => {
-       console.log('api response is :: ', data);
-     });
-   // console.log('user Auth flag is ',isAuthenticatedUser)
-    if(isAuthenticatedUser){
-    //  const baseUrl = 'http://localhost:8000';
-    //  var req= {
-    //   username:this.authService.userDetails().userName
-    //  }
-    //   this.httpClient.post(`${environment.apiUrl}/getUserToken`,req).subscribe((res:any)=>{
-    //     console.log('response is :: ',res);
-    //     if(res.status == "success"){
-         // localStorage.setItem("access_token",res.token);
+     .subscribe((response:any) => {
+       console.log('api response is :: ', response);
+       this.isSubmitted = true;
+       if(response['status'] == 'success' || response['status'] == 'fail' ){
+          this.isAuthenticatedUser = response.data.isAuthenticatedUser;
+          if(response['status'] == 'success'){
+            localStorage.setItem("access_token",response.data.authToken);
            this.authService.setLoggedIn();
          //  this.router.navigate(['/home']);
          this.router.navigateByUrl("users");
-        //}
-      //})
-     
-    }else{
-
-    }
+          }
+      }
+     });
   }
   getAllPost(){
     this.httpClient.get("https://jsonplaceholder.typicode.com/posts").subscribe((res:any)=>{

@@ -37,7 +37,7 @@ public  set users(user:any){
 
   public userLogOut(){
     this.isUserLoggedIn$.next(false);
-    localStorage.removeItem("id_token");
+    localStorage.removeItem("access_token");
     localStorage.removeItem("loggedInStatus");
   }
 
