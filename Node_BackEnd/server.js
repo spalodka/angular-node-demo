@@ -96,6 +96,31 @@ try {
 } catch (e) {
   console.log("error is : ", e);
 }
+try {
+  app.get("/getUsersList", (req, res) => {
+    console.log("req payload is ::  ", req.body);
+    controller.query(
+      "SELECT * FROM user",
+      function(err, data, fields) {
+        if (err) return err;
+        console.log('data is ',data.length);
+        if(data.length > 0){
+          res.status(200).json({
+            status: "success",
+            data: data
+          });   
+        }else{
+         res.status(200).json({
+          status: "fail",
+          data: []
+        });
+      }
+      }
+    );
+  });
+} catch (e) {
+  console.log("error is : ", e);
+}
  //app.use(express.static('angulardemoapp'))
 
 app.get("/",(req,res)=>{

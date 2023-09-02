@@ -17,7 +17,7 @@ export class AppComponent implements OnInit{
   ngOnInit(): void {
     if (localStorage.getItem('access_token')) {
       this.authService.setLoggedIn();
-      this.router.navigateByUrl("/home");
+      this.router.navigateByUrl("/users");
     } else{
       this.router.navigateByUrl("/login");
     }

@@ -1,0 +1,26 @@
+.heading{
+    text-align: center;
+    color:rgb(224, 110, 34)
+}
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    margin: auto;
+    padding:20px;
+  }
+
+  table{
+    width:500px;
+    margin-bottom: 50px;
+}
+  th {
+    text-align: left;
+  }
+  .action-item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .submit-btn {
+    padding: 5px 10px;
+  }
