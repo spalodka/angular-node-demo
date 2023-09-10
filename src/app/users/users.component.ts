@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { environment } from "src/environments/environment";
 @Component({
@@ -9,7 +10,8 @@ import { environment } from "src/environments/environment";
 })
 export class UsersComponent implements OnInit{
   usersList :any = [];
-  constructor(private httpClient:HttpClient){
+  constructor(private httpClient:HttpClient,
+              private router:Router){
 
   }
   ngOnInit(): void {
@@ -18,5 +20,11 @@ export class UsersComponent implements OnInit{
     })
   }
   
+  editUser(user:any){
+    this.router.navigateByUrl("users/userAction");
+  }
 
+  deleteUser(user:any){
+    this.router.navigateByUrl("users/userAction");
+  }
 }

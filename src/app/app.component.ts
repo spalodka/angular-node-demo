@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 export class AppComponent implements OnInit{
 
   title = 'angulardemoapp';
+  //const loginExcludedRoute = ["signup"];
   constructor(public authService : AuthService,
               private router : Router){
     
@@ -17,9 +18,9 @@ export class AppComponent implements OnInit{
   ngOnInit(): void {
     if (localStorage.getItem('access_token')) {
       this.authService.setLoggedIn();
-      this.router.navigateByUrl("/users");
-    } else{
-      this.router.navigateByUrl("/login");
+      //this.router.navigateByUrl("/users");
+    } else {
+     // this.router.navigateByUrl("/login");
     }
   }
 }

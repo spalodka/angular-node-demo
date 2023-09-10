@@ -1,11 +1,12 @@
 .header-menu{
-    width: 100%;
-    height : 70px;
     background-color: blueviolet;
 }
 
 .menu-item{
     display: flex;
+    justify-content:space-around;
+    align-items: center;
+    flex-wrap:wrap;
 }
 .menu-list{
     color:white;
@@ -18,3 +19,10 @@
 .right-menu-list{
     justify-content: flex-end;
 }
+
+// @media screen and (min-width:100px) and  (max-width:870px){
+//     .header-menu{
+//             width: 100%;
+//             max-width: 100%;
+//     }
+// }

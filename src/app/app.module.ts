@@ -16,6 +16,8 @@ import { CourseComponent } from './course/course.component';
 import { StaffComponent } from './staff/staff.component';
 import { FeestructureComponent } from './feestructure/feestructure.component';
 import { UserroleDirective } from './directives/userrole.directive';
+import { SignupComponent } from './signup/signup.component';
+// import { UserActionComponent } from './user-action/user-action.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { UserroleDirective } from './directives/userrole.directive';
     CourseComponent,
     StaffComponent,
     FeestructureComponent,
-    UserroleDirective
+    UserroleDirective,
+    SignupComponent,
+    // UserActionComponent
   ],
   imports: [
     BrowserModule,

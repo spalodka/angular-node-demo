@@ -6,28 +6,26 @@ const  fs = require("fs");
 app.use(cors());
 app.use(express.json());
 const controller = require("./db");
+const { constants } = require("karma");
 
 let jwtBearerToken;
 
 const RSA_PUBLIC_KEY = fs.readFileSync('./privateKey.key');
 const RSA_PRIVATE_KEY = fs.readFileSync('./privateKey.key');
 
-  function checkIfAuthenticated () {
-    try{
+  const checkIfAuthenticated = (req, res, next) => { 
 const verified = jwt.verify(jwtBearerToken, RSA_PUBLIC_KEY);
 console.log('user auth status is :: ',verified);
 if(verified){
     //return res.send("Successfully Verified");
     console.log('user authenticated :: ');
+    next();
 }else{
     // Access Denied
-   // return res.status(401).send(error);
-   console.log('user not authenticated :: ');
+    console.log('user not authenticated :: ');
+    return res.status(401).send(error);
 }
- }
-catch(error){
-  console.log('error is ',error)
-}
+
   }
 
 
@@ -52,7 +50,7 @@ try {
           const userId = req.body.userName;
           jwtBearerToken = jwt.sign({},RSA_PRIVATE_KEY, {
           algorithm: 'RS256',
-          expiresIn:10,
+          expiresIn:30,
           subject: userId
   });
           res.status(200).json({
@@ -83,7 +81,7 @@ try {
     const userId = req.body.username;
      jwtBearerToken = jwt.sign({},RSA_PRIVATE_KEY, {
       algorithm: 'RS256',
-      expiresIn:10,
+      expiresIn:5,
       subject: userId
   });
 
