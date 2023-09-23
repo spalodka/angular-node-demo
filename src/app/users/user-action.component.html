@@ -1,6 +1,39 @@
-<ng-container>
+<!-- <ng-container>
     <form [formGroup]="userForm">
   <label for="last-name">Last Name: </label>
   <input id="first-name" type="text" formControlName="firstName" required>
     </form>
-</ng-container>
+</ng-container> -->
+<form [formGroup]="userForm" >
+<p>
+  <mat-form-field appearance="fill">
+    <mat-label>First Name</mat-label>
+    <input matInput placeholder="firstName" formControlName="firstName">
+    <!-- <mat-hint>Hint</mat-hint> -->
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Last name</mat-label>
+    <input matInput placeholder="last name" formControlName="lastName">
+  </mat-form-field>
+</p>
+<p>
+  <mat-form-field>
+    <mat-label>Updation Time</mat-label>
+    <input matInput [matDatepicker]="picker" formControlName="updation_time">
+    <mat-hint>MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+</p>
+<p>
+  <mat-form-field>
+    <mat-label>Credit Card Number</mat-label>
+    <input matInput placeholder="please enter credit card number" formControlName="credit_card">
+  </mat-form-field>
+</p>
+<div class="example-button-row">
+  <button class="submit-btn" mat-raised-button color="primary" [disabled]="!userForm.valid" (click)="onSubmit()">Submit</button>
+  <button mat-raised-button color="primary" (click)="reset()">Cancel</button>
+</div>
+</form>
+

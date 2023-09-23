@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { UsersComponent } from './users.component';
 import { UserActionComponent } from '../users/user-action.component';
 import { AuthGuard } from '../auth.guard';
+
+
 const routes: Routes = [{  path: '',
                         // { path: 'userAction', component: UserActionComponent}
                         children: [
@@ -12,7 +14,8 @@ const routes: Routes = [{  path: '',
                       ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forChild(routes)
+            ],
   exports: [RouterModule]
 })
 export class UsersRoutingModule { }

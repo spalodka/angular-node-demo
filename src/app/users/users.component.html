@@ -1,5 +1,5 @@
 <h1 class="heading">Users List</h1>
-<div>
+<!-- <div>
 <table>
     <tr>
     <th>First Name</th>
@@ -22,4 +22,30 @@
     </tr>
     </ng-container>
 </table>
+</div> -->
+
+<div class="card">
+    <p-table [value]="usersList" class="usertable" [tableStyle]="{'min-width': '30rem'}">
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="name" style="width:20%">First Name <p-sortIcon field="name"></p-sortIcon></th>
+                <th pSortableColumn="lastname" style="width:20%">Last Name <p-sortIcon field="lastname"></p-sortIcon></th>
+                <th pSortableColumn="username" style="width:20%">User Name <p-sortIcon field="username"></p-sortIcon></th>
+                <th pSortableColumn="password" style="width:20%">Password <p-sortIcon field="password"></p-sortIcon></th>
+                <th pSortableColumn="creation_date" style="width:20%">Creation Date <p-sortIcon field="creation_date"></p-sortIcon></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-user>
+            <tr>
+                <td>{{user.name}}</td>
+                <td>{{user.lastname}}</td>
+                <td>{{user.username}}</td>
+                <td>{{user.password}}</td>
+                <td>{{user.creation_date}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+<div class="action-container">
+    <button class="submit-btn" (click)="generatePDF()"> Export As PDF</button>
 </div>

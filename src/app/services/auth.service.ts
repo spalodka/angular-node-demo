@@ -20,7 +20,6 @@ export class AuthService {
 
   isAuthorized() {
     this.isAuthenticatedUser = !!(localStorage.getItem("access_token"));
-    alert(this.isAuthenticatedUser);
     return this.isAuthenticatedUser;
 }
 

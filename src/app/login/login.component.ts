@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { environment } from 'src/environments/environment';
-import { catchError, of } from 'rxjs';
+import { Observable, catchError, of } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit{
              public authService:AuthService,
              public _route:ActivatedRoute){
   }
-  usersList : any;
+  usersList:any
   isAuthenticatedUser :boolean =false;
   isSubmitted:boolean=false;
   loginForm = new FormGroup({
@@ -25,24 +25,13 @@ export class LoginComponent implements OnInit{
     password: new FormControl(''),
   });
   ngOnInit(): void {
-    // this.httpClient.get("/assets/userslist.json").subscribe((res:any)=>{
-    //   this.usersList = res;
-    //})
+    this.httpClient.get("/assets/userslist.json").subscribe((res:any)=>{
+      this.usersList = res;
+    })
   }
 
   onSubmit(userDetails:any){
     console.log("userDetailsis::",userDetails);
-   // let selectedUser = "";
-    // for (let i = 0; i < this.usersList.length; i++) {
-    //   const userName = this.usersList[i].username;
-    //   const password = this.usersList[i].password;
-    //   if(userName === userDetails.value.userName && password === userDetails.value.password){
-    //       this.authService.users(this.usersList[i]);
-    //      //selectedUser = userName;
-    //      isAuthenticatedUser=true;
-    //      break;
-    //   }   
-    // }
 
    this.httpClient
       .post(`${environment.apiUrl}/validateUserDetails`, userDetails.value).pipe(
