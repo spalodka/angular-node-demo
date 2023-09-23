@@ -17,6 +17,7 @@ import { StaffComponent } from './staff/staff.component';
 import { FeestructureComponent } from './feestructure/feestructure.component';
 import { UserroleDirective } from './directives/userrole.directive';
 import { SignupComponent } from './signup/signup.component';
+import { ChatbotComponent } from './chatbot/chatbot.component';
 // import { UserActionComponent } from './user-action/user-action.component';
 
 @NgModule({
@@ -33,6 +34,7 @@ import { SignupComponent } from './signup/signup.component';
     FeestructureComponent,
     UserroleDirective,
     SignupComponent,
+    ChatbotComponent,
     // UserActionComponent
   ],
   imports: [

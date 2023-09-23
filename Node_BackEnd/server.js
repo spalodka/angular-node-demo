@@ -6,12 +6,20 @@ const  fs = require("fs");
 app.use(cors());
 app.use(express.json());
 const controller = require("./db");
-const { constants } = require("karma");
+const OpenAIApi  = require("openai");
 
 let jwtBearerToken;
 
+//for jwt
 const RSA_PUBLIC_KEY = fs.readFileSync('./privateKey.key');
 const RSA_PRIVATE_KEY = fs.readFileSync('./privateKey.key');
+
+//for chatbot
+const configuration =({
+  apiKey: "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"
+});
+const openai = new OpenAIApi.OpenAI(configuration);
+
 
   const checkIfAuthenticated = (req, res, next) => { 
 const verified = jwt.verify(jwtBearerToken, RSA_PUBLIC_KEY);
@@ -119,6 +127,18 @@ try {
 } catch (e) {
   console.log("error is : ", e);
 }
+app.post("/chat", async (req, res) => {
+  const { message } = req.body;
+
+  const completion = await openai.createChatCompletion({
+    model: "gpt-3.5-turbo",
+    messages: [{ role: "system", content: "You are a helpful assistant." }, { role: "user", content: message }],
+  });
+
+  const reply = completion.data.choices[0].message.content;
+
+  res.json({ reply });
+});
  //app.use(express.static('angulardemoapp'))
 
 app.get("/",(req,res)=>{
