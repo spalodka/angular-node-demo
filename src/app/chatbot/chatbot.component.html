@@ -1,1 +1,29 @@
-<p>chatbot works!</p>
+<!-- <button type="button" class="login-btn" (click)="sendMessage()">Send Message</button> -->
+<form [formGroup]="chatForm"  name="chatForm">
+<div class="chatbot-popup">
+    <button class="chatbot-toggle-button" *ngIf="!showChatbot" (click)="toggleChatbot()">Chat</button>
+    <button class="chatbot-toggle-button" *ngIf="showChatbot"  (click)="toggleChatbot()">Close</button>
+    <div class="chatbot-content" *ngIf="showChatbot">
+      <!-- Chatbot content goes here -->
+      <p>Welcome to the Angular chatbot</p>
+      <p>I am your Assistant ,feel free to ask me any query</p>
+      <!-- Add your chat interface here-->
+      <div class="row">
+        <p>
+        <textarea placeholder="type here..."  formControlName="message" rows="4" cols="40" required></textarea>
+        </p>
+        <p>
+        <button type="button" class="login-btn" (click)="sendMessage()">Submit</button> 
+        <button type="button" class="clear-btn" (click)="reset()">Clear</button> 
+        </p>
+      </div>
+      <div *ngIf="isSearchStarted">
+        <span>Searching for result,please wait ....</span>
+      </div>
+      <div class="row" *ngIf="isAnswered">
+        <p>Here is Answer for your search</p>
+        <textarea id="answer-box" name="answer-box" rows="4" cols="40" formControlName="reply"></textarea>
+      </div>
+    </div>
+  </div>
+</form>

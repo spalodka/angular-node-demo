@@ -6,7 +6,9 @@ const  fs = require("fs");
 app.use(cors());
 app.use(express.json());
 const controller = require("./db");
-const OpenAIApi  = require("openai");
+ const OpenAIApi  = require("openai");
+//const { Configuration, OpenAIApi } = require("openai");
+
 
 let jwtBearerToken;
 
@@ -16,9 +18,10 @@ const RSA_PRIVATE_KEY = fs.readFileSync('./privateKey.key');
 
 //for chatbot
 const configuration =({
-  apiKey: "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"
+  apiKey: "Your API KEY"
 });
-const openai = new OpenAIApi.OpenAI(configuration);
+//const openai = new OpenAIApi.OpenAI(configuration);
+const openai = new OpenAIApi(configuration);
 
 
   const checkIfAuthenticated = (req, res, next) => { 
@@ -130,12 +133,12 @@ try {
 app.post("/chat", async (req, res) => {
   const { message } = req.body;
 
-  const completion = await openai.createChatCompletion({
+  const completion = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
     messages: [{ role: "system", content: "You are a helpful assistant." }, { role: "user", content: message }],
   });
-
-  const reply = completion.data.choices[0].message.content;
+  console.log('data from open ai is ::',completion.choices[0].message)
+  const reply = completion.choices[0].message.content;
 
   res.json({ reply });
 });
