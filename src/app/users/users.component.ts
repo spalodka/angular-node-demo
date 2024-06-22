@@ -58,9 +58,11 @@ export class UsersComponent implements OnInit ,OnChanges , AfterViewChecked ,Aft
       },
     };
 
-    pdfMake.createPdf(documentDefinition).open();
+     pdfMake.createPdf(documentDefinition).download();
    // window.print(); // it will open print & pdf view with whole screen
   }
+
+ 
 
 
   ngOnChanges(changes: SimpleChanges): void {
